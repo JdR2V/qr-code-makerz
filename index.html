@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>QR Studio</title>
+        <meta
+            name="description"
+            content="Make a QR code from a link, right in your browser."
+        />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap"
+            rel="stylesheet"
+        />
+    </head>
+    <body>
+        <header class="topbar">
+            <div class="brand">
+                <span class="brand__mark" aria-hidden="true"></span>
+                <span class="brand__name">QR&nbsp;MAKER</span>
+            </div>
+            <p class="topbar__note">
+                runs entirely in your browser · nothing uploaded
+            </p>
+        </header>
+
+        <main class="layout">
+            <section class="panel controls" aria-label="QR settings">
+                <label class="field">
+                    <span class="field__label">Link or text</span>
+                    <textarea
+                        id="text"
+                        class="field__input field__input--mono"
+                        rows="3"
+                        placeholder="https://your-portfolio.dev"
+                        spellcheck="false"
+                    ></textarea>
+                </label>
+
+                <label class="field">
+                    <span class="field__label">Error correction</span>
+                    <select id="ecc" class="field__input">
+                        <option value="M" selected>M — balanced (~15%)</option>
+                        <option value="Q">Q — strong (~25%)</option>
+                        <option value="H">
+                            H — highest, best for logos (~30%)
+                        </option>
+                    </select>
+                    <p id="ecc-hint" class="field__hint" hidden></p>
+                </label>
+
+                <div class="field-row">
+                    <label class="field">
+                        <span class="field__label">Code color</span>
+                        <input
+                            id="fg"
+                            type="color"
+                            class="field__color"
+                            value="#111111"
+                        />
+                    </label>
+                    <label class="field">
+                        <span class="field__label">Background</span>
+                        <input
+                            id="bg"
+                            type="color"
+                            class="field__color"
+                            value="#ffffff"
+                        />
+                    </label>
+                </div>
+
+                <div class="field">
+                    <span class="field__label">Center logo</span>
+                    <div class="logo-row">
+                        <label class="btn btn--ghost" for="logo"
+                            >Choose image…</label
+                        >
+                        <input
+                            id="logo"
+                            type="file"
+                            accept="image/*"
+                            class="visually-hidden"
+                        />
+                        <button
+                            id="logo-clear"
+                            class="btn btn--text"
+                            type="button"
+                            hidden
+                        >
+                            Remove
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="panel preview" aria-label="Preview">
+                <div class="preview__frame">
+                    <canvas id="preview" width="0" height="0"></canvas>
+                </div>
+                <p id="status" class="preview__status">
+                    Type or paste a link to generate a code.
+                </p>
+                <button
+                    id="download"
+                    class="btn btn--solid"
+                    type="button"
+                    disabled
+                >
+                    Download PNG
+                </button>
+                <p
+                    id="contrast-warn"
+                    class="contrast-warn"
+                    role="status"
+                    hidden
+                ></p>
+            </section>
+        </main>
+
+        <script type="module" src="/src/main.ts"></script>
+    </body>
+</html>

@@ -1,0 +1,341 @@
+/* style.css
+   A sharp, modular look that echoes the QR grid itself:
+   hard black borders, offset shadows, mono labels, one coral accent. */
+
+:root {
+    --ink: #111111;
+    --paper: #f4f3ee;
+    --card: #ffffff;
+    --line: #d9d7cf;
+    --accent: #ff4d2e;
+    --error: #c0341d;
+
+    --border: 2.5px solid var(--ink);
+    --shadow: 6px 6px 0 var(--ink);
+
+    --font-display: "Space Grotesk", system-ui, sans-serif;
+    --font-mono: "Space Mono", ui-monospace, monospace;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background-color: var(--paper);
+    /* faint module grid in the backdrop */
+    background-image:
+        linear-gradient(var(--line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 28px 28px;
+    color: var(--ink);
+    font-family: var(--font-display);
+    line-height: 1.5;
+}
+
+/* ---------- Topbar ---------- */
+.topbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 1.1rem clamp(1rem, 4vw, 2.5rem);
+    border-bottom: var(--border);
+    background: var(--card);
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.brand__mark {
+    width: 22px;
+    height: 22px;
+    background: var(--ink);
+    /* a tiny finder-pattern: dark square with a light core and dark center */
+    box-shadow:
+        inset 0 0 0 5px var(--card),
+        inset 0 0 0 9px var(--ink);
+}
+
+.brand__name {
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    font-size: 1.05rem;
+}
+
+.topbar__note {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: #555;
+}
+
+/* ---------- Layout ---------- */
+.layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+    gap: clamp(1rem, 3vw, 2rem);
+    max-width: 980px;
+    margin: 0 auto;
+    padding: clamp(1.25rem, 4vw, 2.5rem);
+}
+
+.panel {
+    background: var(--card);
+    border: var(--border);
+    box-shadow: var(--shadow);
+    padding: clamp(1.1rem, 3vw, 1.6rem);
+}
+
+/* ---------- Controls ---------- */
+.controls {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+}
+
+.field__label {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #444;
+}
+
+.field__input {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    color: var(--ink);
+    background: var(--paper);
+    border: var(--border);
+    padding: 0.6rem 0.7rem;
+    width: 100%;
+    resize: vertical;
+}
+
+.field__input--mono {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+}
+
+.field__input:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 2px;
+}
+
+.field__hint {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--accent);
+}
+
+.field-row {
+    display: flex;
+    gap: 1rem;
+}
+
+.field-row .field {
+    flex: 1;
+}
+
+.field__color {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 100%;
+    height: 44px;
+    padding: 4px;
+    background: var(--paper);
+    border: var(--border);
+    cursor: pointer;
+}
+.field__color::-webkit-color-swatch-wrapper {
+    padding: 0;
+}
+.field__color::-webkit-color-swatch {
+    border: none;
+}
+
+.logo-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    cursor: pointer;
+    border: var(--border);
+    padding: 0.6rem 1rem;
+    transition:
+        transform 0.05s ease,
+        box-shadow 0.05s ease;
+}
+
+.btn--solid {
+    background: var(--accent);
+    color: var(--card);
+    box-shadow: var(--shadow);
+}
+
+.btn--ghost {
+    background: var(--card);
+    color: var(--ink);
+}
+
+.btn--solid:hover:not(:disabled),
+.btn--ghost:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 8px 8px 0 var(--ink);
+}
+
+.btn--solid:active:not(:disabled),
+.btn--ghost:active {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 var(--ink);
+}
+
+.btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.btn--text {
+    border: none;
+    background: none;
+    padding: 0.2rem 0.2rem;
+    color: var(--error);
+    text-decoration: underline;
+}
+
+.btn:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 2px;
+}
+
+/* ---------- Preview ---------- */
+.preview {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.1rem;
+    position: sticky;
+    top: 1.5rem;
+    align-self: start;
+}
+
+/* The frame draws QR-style corner brackets around the live code. */
+.preview__frame {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 100%;
+    min-height: 280px;
+    padding: 1.5rem;
+    background: var(--paper);
+    border: var(--border);
+}
+.preview__frame::before,
+.preview__frame::after {
+    content: "";
+    position: absolute;
+    width: 26px;
+    height: 26px;
+    border: 5px solid var(--accent);
+}
+.preview__frame::before {
+    top: 10px;
+    left: 10px;
+    border-right: none;
+    border-bottom: none;
+}
+.preview__frame::after {
+    bottom: 10px;
+    right: 10px;
+    border-left: none;
+    border-top: none;
+}
+
+#preview {
+    max-width: 100%;
+    height: auto;
+    image-rendering: pixelated;
+}
+
+.preview__status {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: #555;
+    text-align: center;
+    min-height: 1.2em;
+}
+
+.status--error {
+    color: var(--error);
+}
+
+/* Bottom-of-panel contrast warning. */
+.contrast-warn {
+    margin: 0;
+    max-width: 38ch;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    line-height: 1.4;
+    text-align: center;
+    color: var(--error);
+    border: 2.5px solid var(--error);
+    background: #fff4f1;
+    padding: 0.55rem 0.7rem;
+}
+
+/* ---------- Utilities ---------- */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 720px) {
+    .layout {
+        grid-template-columns: 1fr;
+    }
+    .preview {
+        position: static;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .btn {
+        transition: none;
+    }
+}
