@@ -1,4 +1,4 @@
-# QR Code Maker
+# QR Code Makerz
 
 A free, no-nonsense QR code generator that works entirely in your browser. Paste a link, tweak the colors, drop in a logo if you want, and download your code as a PNG — no ads, no sign-up, no files uploaded anywhere.
 
